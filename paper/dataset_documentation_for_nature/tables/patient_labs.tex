@@ -1,0 +1,22 @@
+\usepackage{multirow}
+\input{/tables/patient_summ}
+
+\begin{threeparttable}
+\resizebox{.5\paperheight}{!}{%
+\begin{tabular}{lccccc}
+& \textbf{Mean} & \textbf{SD} & \textbf{Minimum} & \textbf{Maximum} & \textbf{Observation}
+Age & \agemean & \agesd & \agemin & \agemax & \ageobs \\
+Weight & \weightmean & \weightsd & \weightmin & \weightmax & \weightobs \\
+Temperature & \tempmean & \tempsd & \tempmin & \tempmax & \tempobs \\
+Pulse & \pulsemean & \pulsesd & \pulsemin & \pulsemax & \pulseobs \\
+Systolic Pressure & \bpsymean & \bpsysd & \bpsymin & \bpsymax & \bpsyobs \\
+Diastolic Pressure & \bpdimean & \bpdisd & \bpdimin & \bpdimax & \bpdiobs \\
+Gender & \multicolumn{2}{*}{Male: \males} & \multicolumn{2}{*}{Female: \females} & \genderobs \\
+
+\toprule[2.3pt]
+
+\bottomrule[2.3pt]
+\addlinespace
+\end{tabular}%
+}
+\end{threeparttable}

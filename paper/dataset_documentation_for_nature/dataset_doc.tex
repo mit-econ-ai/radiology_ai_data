@@ -1,0 +1,404 @@
+%% LyX 2.3.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{float}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% Header
+\usepackage{fancyheadings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{lmodern}
+\usepackage{outlines}
+\usepackage{bm}
+\usepackage{xr}
+\usepackage{subfig}
+\usepackage{algorithm,algpseudocode}
+\usepackage{caption}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{booktabs, tabularx}
+\pagestyle{fancy}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{geometry}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\definecolor{maroon}{RGB}{139,0,0}
+\definecolor{figray}{RGB}{128,128,128}
+\definecolor{color1}{rgb}{0.5,0,0}    %The standard maroon
+\definecolor{color2}{rgb}{0.65,0.65,0.65} %The lighter gray, not a standard color, darker that the usual light gray
+\definecolor{color3}{rgb}{0.3,0.3,0.3}
+
+\chead{}
+\lhead{}
+\rhead{\thepage}
+
+\rfoot{}
+\cfoot{}
+\lfoot{}
+\renewcommand{\headrulewidth}{0pt}
+
+% Constants
+\newcommand{\constp}[1]{\input{../assets/constants/#1.txt}\unskip}
+
+
+% Section Header Styles
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\normalsize\itshape}
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+% Tikz Preamble entry
+\usepackage{tikz}
+\usepackage{tikz-network}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains}
+\usetikzlibrary{math}
+\usetikzlibrary{patterns}
+\tikzset{>=latex}
+\newcommand*\Texture[3][{\raisebox{0pt}[16pt][0pt]{ $+$}}]{\leavevmode\hbox to #2{\leaders\vbox to #3{\leaders\hbox{#1}\vfil}\hfil}}
+\usetikzlibrary{fadings}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
+\usepgfplotslibrary{fillbetween}
+%
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\title{\vspace{-50pt}
+}
+\title{Dataset Documentation: Combining Human Expertise with Artificial Intelligence }
+\author{Nikhil Agarwal, Alex Moehring, Pranav Rajpurkar, Tobias Salz\thanks{Agarwal: Department of Economics, MIT and NBER, email: agarwaln@mit.edu.
+Moehring: MIT Sloan School of Management, email: moehring@mit.edu.
+Rajpurkar: Department of Biomedical Informatics, Harvard Medical School,
+email: pranav\_rajpurkar@hms.harvard.edu. Salz: Department of Economics,
+MIT and NBER, email: tsalz@mit.edu. }}
+\maketitle
+\begin{abstract}
+Artificial Intelligence (AI) is often perceived to supplant humans
+in tasks requiring complex decision-making and reasoning. Contrary
+to this view, this dataset provides experimental data on human-AI
+collaboration to emphasize the need to study optimal collaboration
+between human experts and AI tools. Using a self-designed interface,
+we collected probabilistic assessments of \textasciitilde 280 radiologists
+on a subset of 324 historical cases under different information and
+sequence settings. This paper provides insight into the purpose, collection
+approach and example uses of the dataset. The dataset was used to
+study topics of how best to combine AI predictions with human input
+informed by contextual information, and potential human biases in
+using AI to inform decisions. With this resource, questions in healthcare
+AI and decision-making can be explored. 
+\end{abstract}
+
+\section{Introduction}
+
+The advances in AI have raised concerns of a potential displacement
+of humans. While there is no doubt that AI has advanced enough to
+perform tasks requiring complex reasoning, machines still cannot perform
+the range of tasks that humans can {[}Andrew Ng{]}. In the context
+of radiology, while deep learning has improved precision in image
+recognition tasks, AI still cannot process clinical history information
+the way humans can. This complementarity of AI's precision and humans'
+contextual information necessitates the study of collaboration between
+these two. 
+
+With this purpose, we launched an experiment to collect chest X-ray
+diagnostic assessments for retrospective patient cases of \textasciitilde 280
+radiologists for 10 main thoracic pathologies (104 sub-pathologies
+conditional on significant presence of main pathology) under different
+information conditions and design tracks. We acquired these assessments
+using a remote interface and through two modes: a) continuous probabilistic
+value of pathology prevelance b) binarized recommendation on treatment/follow-up. 
+
+In addition to that, the dataset contains information on time spent
+by radiologist on cases, clinical history information of the patients
+and values of two ground truth specifications defined by the researchers.
+These ground truth variables derive from the assesessment of aggregating
+the assessments of five board-certified radiologists at Mt. Sinai
+hospital, and by estimating the leave-one-out mean of the probabilities
+reported by the radiologists in the experiment. 
+
+ Using this dataset one can answer questions like: 1. How do humans/radiologists
+use AI assistance? 2. Is contextual information valuable? 3. Do the
+costs of AI induced human biases outweigh the benefits? 4. What is
+the trade-off, if any, between the cost savings on human effort and
+decision-quality when delegating tasks to AI tools? 5. How do radiologists
+with different skill levels use AI assistance? This is indicative
+of the nature of research that can be undertaken with this data resource.
+Existing literature on this topic compares the performance of AI
+tools with human prediction power but does not explore how humans
+collaborate with AI. This dataset aims to fill the gap in the AI-expert
+collaboration field by providing experimental and quantitative assessment
+of chest X-rays.
+
+In the following sections we discuss the summary statistics, example
+uses, variables, data collection and augmentation that gives the resulting
+dataset. 
+
+\section*{Dataset}
+
+\subsection*{Data Collection}
+
+The dataset was collected by researchers at Massachusetts Institute
+of Technology (M.I.T.) and Harvard University using a remote interface
+(Refer Appendix \ref{subsec:Appendix:-Experiment-Interface}). Participants
+for this experiment were recruited from teleradiolgy companies (first
+and third design) and the VinMac healthcare system in Vietnam(second
+design). While all the participants were compensated for their participation
+in the experiment, 
+
+We used a designed three approaches to collect data on radiologists'
+probabilities of chest X-ray interpretations to study human-AI collaboration
+under various settings. These approaches were defined to mimic the
+clinical setting for the participants. The proposed three hybrid designs
+collect both within and across subject data. Within these designs,
+the radiologists were randomized into different tracks depending on
+the sequence of the following information environments:
+\begin{enumerate}
+    \item X-ray only
+    \item X-ray with clinical history information
+    \item X-ray with AI assistance 
+    \item X-ray with AI assistance and clinical history information
+\end{enumerate}
+Along each track, every radiologist views one of the 324 historical
+cases procured from the Stanford Healthcare System. These cases are
+manually reviewed for public release and contain the X-ray and clinical
+history information. We chose to use restrospective cases to limit
+stakes in existing diagnostic procedures. For the AI assistance information
+environment, we provide radiologists with CheXpert, developed by a
+team of researchers at Stanford University. CheXpert, a deep learning
+algorithm trained on 224,316 chest radiographs of 65,240 patients
+uses only the X-ray image to predict the prevelance of fourteen thoracic
+pathologies. 
+
+Finally, to establish the ground truth for analyzing the quality of
+the radiologists' assessment, aggregate data on the assessments of
+five board-certified radiologists at Mt. Sinai hospital with at least
+ten years of experience and chest radiology as a sub-specialty was
+collected. 
+
+\subsubsection*{Designs}
+
+\subsubsection*{Design 1}
+
+In this design, radiologists are assigned to a randomized sequence
+track of the four information environments. They read fifteen patient
+cases under every information environment in a sequential manner.
+No case is read more than once. At the beginning of the experiment
+every radiologist reads 8 practice cases. This design allows for both
+within- and across-subject variation.
+\begin{figure}[H]
+\caption{Design 1\label{fig:Design-1}}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../../images/design1.pdf}
+\end{center}
+\end{figure}
+
+
+\subsubsection*{Design 2}
+
+In this design, radiologists diagnose sixty patient cases under the
+four information environments. To ensure that radiologists do not
+recall their/AI predictions from previous reads of the cases, a two-week
+washout period is introduced between two experiment sessions. Within
+every experiment session, fifteen patient cases are read under every
+information environment in groups of five with no case repeated within
+a session. The randomization occurs at the track-level where every
+track has a different sequence of the information environments. 
+\begin{figure}[H]
+\caption{Design 2 \label{fig:Design-2}}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../../images/design2.pdf}
+\end{center}
+\end{figure}
+
+
+\subsubsection*{Design 3}
+
+In this design, radiologists diagnose fifty cases, first without and
+then with AI assistance. Clinical history is randomly provided in
+either the first or second half of images forming the basis of the
+randomization. The cases diagnosed with and without clinical history
+are different.
+\begin{figure}[H]
+\caption{Design 3 \label{fig:Design-3}}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../../images/design3.pdf}
+\end{center}
+\end{figure}
+
+
+\subsection*{Structure 
+
+Every observation in the dataset refers to a radiologist-patient-pathology
+in a given experiment session. While there are no individual personal
+identifiers in the dataset, we have defined unique identifiers for
+each radiologist and patient-case used in the experiment. There is
+also information on the design type and the sequence in which each
+case was viewed by the radiologists within each experiment session.
+Across different designs, the radiologists read cases under different
+information environments. in which the case was read is also The major
+variables of interest in this dataset are: probability, treat, alg\_pred
+and the gt\_{*}{*} variables (refer to the variables list in Appendix
+\ref{subsec:Appendix:-Variables}) that include information collected
+using the remote interface. 
+
+In radiology, a definitive ground truth is generally not available
+because of inherent variability in radiologists and their image-reading
+experience. In this dataset we introduce two important ground truth
+measures: 1. Constructed by aggregating the probabilistic assessments
+of five board-certified radiologists at Mt. Sinai Hospital. These
+radiologists have at least ten years of experience with chest-radiology
+as their sub-speciality. 2. Constructed using leave-one-out average
+of radiologists' assessments from the experiment. The reads used to
+calculate this ground truth were from the treatment arm with clinical
+history but no AI assistance. Some other ground truth variables in
+the dataset are: a. Continuous ground truth b. Ground truth constructed
+using logodds ratio: $log\left[\frac{p}{1-p}\right]$. 
+
+
+\subsection{Distribution and Maintenance}
+
+\section{Preliminary Analysis}
+
+The following sections intend to discuss possible uses of the dataset
+for future research. 
+
+\subsection{Summary Statistics}
+
+In this section, we present some summary statistics on radiologists'
+reported probability and decisions, their deviation from the defined
+ground truth/AI, and the radiologist performance relative to AI. The
+deviation variables are key to understanding radiologist accuracy
+and AI influence in making diagnostic decisions. The values have been
+reported across two pre-registered groups: a) Top-level with AI- This
+includes the top-level pathologies of cardiomedistinal abnormality
+and airspace opacity. b) Pooled with AI - This includes all the pathologies
+with AI predictions excluding abnormality and support device hardware.
+As shown in the table below, there is consistency in the reported
+statistics across the different designs. 
+
+\begin{table}[H]
+\centering
+
+\caption{Summary statistics\label{tab:summary_statistics}}
+
+\input{table_summary_frag.tex}
+
+\noindent\begin{minipage}[t]{1\columnwidth}%
+{\scriptsize{}Note: This table presents summary statistics of the
+experimental data. The first panel pools across all three designs
+and the remaining three panels separate for each of the three designs
+respectively. Decision is an indicator for whether treatment/follow-up
+is recommended, correct decision is an indicator for whether the decision
+matches the ground truth, deviation from ground truth is the absolute
+difference between the reported probability and the ground truth,
+deviation from AI is the absolute difference between the expert's
+reported probability and the AI's reported probability, active time
+is measured in minutes.}%
+\end{minipage}
+\end{table}
+
+
+\subsection{Treatment effects of providing AI and contextual information}
+
+Since stakes in medical decision making are high, effective AI and
+human collaboration becomes a priority in improving patient outcomes.
+While some studies (Refer in Medow Arkes) show that medical professionals
+are reluctant to use AI tools, studies like the one in (Medow Arkes)
+reveal greater influence by AI inputs in medical decision-making.
+These contrasting results necessitate further exploration of how human
+experts respond to AI, contextual information and their own judgement.
+
+In our dataset, the four information environments allow for a treatment
+effect analysis to answer the aforementioned question. A summary table
+with the mean probabilistic deviation from AI, and mean of the follow-up
+decision shows differences between access to AI vs not. The mean radiologist
+deviates less from AI when given access to the AI tool. This could
+point to automation bias exhibited by radiologists which can lead
+to inaccurate diagnosis. Studying the degree of this bias could help
+developers of healthcare AI tools to calibrate the AI for differentially
+skilled users (Alberdi, Ayton 2005)
+
+\begin{table}[H]
+\centering
+
+\input{dev_table.tex}
+
+\caption{Deviation across treatment groups}
+\end{table}
+
+
+\subsection{Post experiment questionnare}
+
+At the end of the experiment, radiologists filled a survey based on
+their experience using the AI tool and Clinical History in making
+the assessments. Their responses are helpful to understand the extent
+to which AI and CH affect the assessment, decision-making and effort
+exerted in the diagnosis process. 
+
+AI influence: We try to evaluate the role played by AI in influencing
+radiologists actions. Through the questions, we find that while \textasciitilde 45\%
+radiologists agree that AI influences the assessment of a pathologies
+presence only \textasciitilde 28\% believe that it influences the
+diagnosis decision. Radiologists were split on their views of AI influencing
+their decision regarding follow-up treatment. This inconsistent treatment
+of AI signals by radiologists allows for further research in the human-AI
+collaboration space. 
+
+\begin{figure}[H]
+\caption{AI Influence\label{fig:ai-influence}}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{ai_influence.pdf}
+\end{center}
+\end{figure}
+
+Clinical history influence: Contrastingly, radiologists agreed to
+the influence of clinical history on all three fronts of assessment,
+decision-making and effort exertion. Clinical history is considered
+to be a critical component in diagnostic radiology as it helps radiologists
+to narrow down to specific regions in the X-ray. Concurrently, its
+availability is believed to introduce cognitive biases like anchoring
+bias, attribution bias and framing bias (Brennan and Ekpo). Given
+these doubts about the benefits of clinical history, the radiologists'
+probabilities and treatment decisions across different information
+environments in the dataset can be uses to study its importance. Another
+potential use of ththe quality of the clinical history indication
+plays a huge role in ensuring an accurate diagnosis is that given
+the varying levels of details in the clinical history indication available
+to the radiologists, the importance of good quality clinical history
+in decision accuracy can be studied. 
+
+\begin{figure}[H]
+\caption{Clinical History Influence\label{fig:ch-influence}}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{ph_influence.pdf}
+\end{center}
+\end{figure}
+
+
+\subsection*{Appendix: Variables \label{subsec:Appendix:-Variables} }
+
+\begin{table}
+\caption{Variable List}
+\input{var_table.tex}
+\end{table}
+
+
+\subsection*{Appendix: Experiment Interface \label{subsec:Appendix:-Experiment-Interface}}
+
+\input{interface.tex}
+\end{document}
