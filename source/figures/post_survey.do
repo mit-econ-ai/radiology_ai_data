@@ -1,4 +1,4 @@
-import excel "C:\Users\mkutwal\OneDrive - Massachusetts Institute of Technology\Documents\AI Project\debrief_responses.xlsx", sheet("Sheet1") firstrow clear
+import excel "source/data/debrief_responses.xlsx", sheet("debrief_responses") firstrow clear
 
 *--- AI Influence
 foreach tool in ai ph {
@@ -27,6 +27,6 @@ foreach tool in ai ph {
 
 	graph set window fontface "Times New Roman"
 	
-	*graph export "C:/Users/mkutwal/Dropbox (MIT)/data_rts/draft/manuscript/dataset_documentation/`tool'_influence.pdf", replace
+	graph export "../../output/figures/`tool'_influence.pdf", replace
 }
 

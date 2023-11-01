@@ -84,10 +84,9 @@ program define datasheet_summary
 	summ_tables using "`macros_file'", texmacro("`var'") variable(`var') `decision' 
 end
 
-global user mkutwal
-use "C:/Users/${user}/Dropbox (MIT)/data_rts/draft/cleaned/experiment.dta", clear
 
-local macro_file "C:/Users/${user}/Dropbox (MIT)/data_rts/draft/manuscript/dataset_documentation/patient_summ.tex"
+use "source/data/data_cleaned.dta", clear
+local macro_file "output/tables/patient_summ.tex"
 
 * One observation of patient cases
 bysort npatientid: keep if _n == 1 
