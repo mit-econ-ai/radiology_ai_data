@@ -7,7 +7,7 @@ This dataset provides a unique resource to study human-AI collaboration in chest
 ## Steps for running the repository.
 
 1. Download & unzip the radiology experiment data (titled "A Dataset for Understanding Radiologist - Artificial Intelligence Collaboration") from the Open Science Framework (OSF). Store and unzip in the `source/data` folder.
-2. Run `make.sh` in terminal.
+2. Run `source/make.sh` in terminal.
 3. To run the code associated with the summary statistics table, please see the replication package associated with "Combining human expertise with artificial intelligence: Experimental evidence from radiology" (Agarwal, Moehring, Rajpurkar, Salz (2023)). The output required to create the summary statistics is saved in `output/tables`.
 
 All the non-data output is contained in the `output` folder. 
