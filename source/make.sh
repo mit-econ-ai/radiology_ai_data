@@ -3,6 +3,7 @@
 # Create output folders
 mkdir -p output/figures
 mkdir -p output/tables
+mkdir -p source/data
 
 echo "Running cleaning scripts..."
 python3 cleaning/convert_data_public.py
